@@ -12,9 +12,13 @@ public class ElevatorManager {
 			controllers.add(controller);
 		}
 	}
-
+	
+	public void setSchedulerFactory(ElevatorSchedulerFactory schedulerFactory) { // setter of schedulerFactory
+		this.schedulerFactory = schedulerFactory;
+	}
+	
 	void requestElevator(int destination, Direction direction) {
-		ElevatorScheduler scheduler = schedulerFactory.getElevatorScheduler();
+		ElevatorScheduler scheduler = SchedulerCreator.create(schedulerFactory);
 		int selectedElevator = scheduler.selectElevator(controllers, destination, direction);
 		controllers.get(selectedElevator).gotoFloor(destination);
 	}
